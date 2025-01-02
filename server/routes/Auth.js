@@ -72,7 +72,7 @@ router.post("/Login", async (req, res) => {
         });
 
         // res.json({message:"User Signin Successfully"})
-        res.json({ message: "İstifadəçi uğurla daxil oldu" })
+        res.json({ message: "İstifadəçi uğurla daxil oldu", payload })
 
     } catch (error) {
         console.log(error)
@@ -109,6 +109,8 @@ router.post("/Logout", async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 });
+
+
 
 
 export default router;

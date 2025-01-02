@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import FoodCadr from '../components/FoodCadr'
+import { ContextAdmin } from '../context/AdminContext'
 const Home = () => {
+    const { category } = useContext(ContextAdmin)
+
     return (
         <div className='pb-[100px]'>
             <div className='px-[20px]'>
@@ -50,12 +53,11 @@ const Home = () => {
 
             <div className='container mx-auto'>
                 <div className='grid grid-cols-3 gap-4 max-[991px]:grid-cols-2 max-[768px]:grid-cols-1 pt-[30px] max-[768px]:px-[15px]'>
-                    <FoodCadr />
-                    <FoodCadr />
-                    <FoodCadr />
-                    <FoodCadr />
-                    <FoodCadr />
-                    <FoodCadr />
+                    {
+                        category && category.map((item, index) => (
+                            <FoodCadr key={index} item={item} />
+                        ))
+                    }
                 </div>
             </div>
         </div>

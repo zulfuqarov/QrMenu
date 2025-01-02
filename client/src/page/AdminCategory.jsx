@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import AdminCategoryList from '../components/AdminComponents/AdminCategoryList'
 import CategoryModal from '../components/AdminComponents/CategoryModal';
+import { ContextAdmin } from '../context/AdminContext';
 
 const categories = [
     {
@@ -44,15 +45,16 @@ const categories = [
 
 
 const AdminCategory = () => {
+    const { category } = useContext(ContextAdmin)
     const [isOpen, setIsOpen] = useState(false);
     const [editCategory, setEditCategory] = useState(null);
 
-    const handleModalToggle = (category) => {
+    const handleModalToggle = (categoryToogle) => {
         setIsOpen(!isOpen);
-        setEditCategory(category)
+        setEditCategory(categoryToogle)
     };
 
-  
+
 
     return (
         <div className='w-full h-[100vh] flex justify-center pb-[100px] pt-[50px]'>
@@ -73,14 +75,14 @@ const AdminCategory = () => {
                         </select>
                     </div>
                     <button
-                        onClick={handleModalToggle}
+                        onClick={() => handleModalToggle(null)}
                         className="mb-6 px-6 py-3 text-[14px] bg-orange-500 text-white font-semibold rounded-lg shadow-md hover:bg-orange-600 transition duration-300">
                         Add Category
                         <i className="fa-solid fa-plus pl-[10px]"></i>
                     </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 overflow-y-scroll h-full pb-[70px]">
-                    {categories.map((category, index) => (
+                    {category.map((category, index) => (
                         <AdminCategoryList
                             handleModalToggle={handleModalToggle}
                             key={index}

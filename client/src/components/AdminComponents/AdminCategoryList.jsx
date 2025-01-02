@@ -4,7 +4,7 @@ const AdminCategoryList = ({ category, handleModalToggle }) => {
     return (
         <div
             key={category.id}
-            className="flex items-center max-[768px]:flex-col bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
+            className="flex h-[112px] items-center max-[768px]:flex-col bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
         >
 
             <div className="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden border border-gray-300">

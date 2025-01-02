@@ -3,7 +3,7 @@ import { createContext } from 'react'
 export const ContextUser = createContext()
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 
 const CheckUserContext = ({ children }) => {
     const navigate = useNavigate()
@@ -13,17 +13,20 @@ const CheckUserContext = ({ children }) => {
         baseURL: apiUrl,
     });
 
+    const [hasJwtToken, sethasJwtToken] = useState(null)
+
     apiClient.interceptors.response.use(
         (response) => response,
         (error) => {
             if (error.response?.status === 403) {
                 navigate("/");
+                sethasJwtToken(false)
+                toast.error(error.response.data.error);
             }
             return Promise.reject(error);
         }
     );
 
-    const [hasJwtToken, sethasJwtToken] = useState(null)
     useEffect(() => {
         const cookies = document.cookie;
         const jwtToken = cookies.split(';').some(c => c.trim().startsWith('jwtToken='));

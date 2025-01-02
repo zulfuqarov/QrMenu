@@ -10,7 +10,9 @@ const categorySchema = mongoose.Schema({
         type: String,
         trim: true,
         default: 'https://www.iseu.bsu.by/en/wp-content/plugins/elementor/assets/images/placeholder.png'
-    }
-})
+    },
+    createdAt: { type: Date, default: Date.now },
+},
+)
 
 export default mongoose.model('Category', categorySchema);

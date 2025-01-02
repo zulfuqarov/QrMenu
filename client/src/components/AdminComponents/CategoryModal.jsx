@@ -1,34 +1,63 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { ContextAdmin } from '../../context/AdminContext';
 
 const CategoryModal = ({ isOpen, handleModalToggle, editCategory }) => {
-    const [selectedImage, setSelectedImage] = useState(null);
+    const { newCategoryFunc } = useContext(ContextAdmin)
+    // change image catgeory 
+    const [selectedImage, setSelectedImage] = useState({
+        imageUrl: null,
+        imageFile: null,
+    });
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        if (!file) return;
+
         if (file) {
             const imageUrl = URL.createObjectURL(file);
-            setSelectedImage(imageUrl);
+            setSelectedImage({
+                imageUrl,
+                imageFile: file,
+            });
         }
     };
 
+    // change input category
+    const [categoryInput, setCategoryInput] = useState('')
+    const handeleChangeInput = (e) => {
+        setCategoryInput(e.target.value)
+    }
+
+
     useEffect(() => {
-        if (editCategory && editCategory.image) {
-            setSelectedImage(editCategory.image);
-        }else{
-            setSelectedImage(null);
+        if (editCategory) {
+            setCategoryInput(editCategory.name || '');
+            setSelectedImage({
+                imageUrl: editCategory.image || null,
+                imageFile: null,
+            });
+        } else {
+            setCategoryInput('')
+            setSelectedImage({
+                imageUrl: null,
+                imageFile: null,
+            });
         }
     }, [editCategory]);
+
 
     return (
         isOpen &&
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm">
             <div className="bg-white w-96 p-6 rounded-lg shadow-lg">
-                <h2 className="text-lg font-bold mb-4">Add New Category</h2>
+                <h2 className="text-lg font-bold mb-4">{editCategory ? 'Update Category' : 'Add New Category'} </h2>
 
                 {/* Category Name Input */}
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                     Category Name
                 </label>
                 <input
+                    onChange={handeleChangeInput}
+                    value={categoryInput}
                     type="text"
                     placeholder="Enter category name"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-orange-500 focus:outline-none"
@@ -39,9 +68,9 @@ const CategoryModal = ({ isOpen, handleModalToggle, editCategory }) => {
                     htmlFor="imageUpload"
                     className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-orange-500 transition duration-300"
                 >
-                    {selectedImage ? (
+                    {selectedImage.imageUrl ? (
                         <img
-                            src={selectedImage}
+                            src={selectedImage.imageUrl}
                             alt="Uploaded Preview"
                             className="object-cover w-full h-full rounded-lg"
                         />
@@ -81,9 +110,20 @@ const CategoryModal = ({ isOpen, handleModalToggle, editCategory }) => {
                     >
                         Cancel
                     </button>
-                    <button className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
-                        Save
-                    </button>
+                    {
+                        editCategory ? <button
+
+                            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
+                            Update
+                        </button> : <button
+                            onClick={() => newCategoryFunc({
+                                name: categoryInput,
+                                imageFile: selectedImage.imageFile,
+                            })}
+                            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
+                            Save
+                        </button>
+                    }
                 </div>
             </div>
         </div>

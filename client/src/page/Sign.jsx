@@ -23,6 +23,7 @@ const Sign = () => {
         try {
             const response = await apiClient.post(`/Auth/Login`, signInput)
             toast.success(response.data.message)
+            localStorage.setItem('userName', response.data.payload.Name)
             sethasJwtToken(true)
             navigate("/Admin")
         } catch (error) {

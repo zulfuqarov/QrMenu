@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ContextUser } from '../../context/CheckUserContext';
+import { toast } from 'react-toastify';
 const Sidebar = () => {
+    const { apiClient, sethasJwtToken } = useContext(ContextUser)
+    const navigate = useNavigate()
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-    // const toggleDropdown = () => {
-    //     setIsDropdownOpen(!isDropdownOpen);
-    // };
+    // logout start
+    const logout = async () => {
+        try {
+            const response = await apiClient.post(`/Auth/Logout`)
+            toast.success(response.data.message)
+            sethasJwtToken(false)
+            navigate("/Sign")
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className='h-[100vh] pt-[10px] relative max-[991px]:fixed max-[991px]:z-50'>
@@ -59,6 +70,12 @@ const Sidebar = () => {
                             <i className="bi bi-bookmark-fill"></i>
                             <span className="text-[15px] ml-4 text-gray-200 font-bold">Product</span>
                         </Link>
+                        <button
+                            onClick={logout}
+                            className="p-2.5 w-full mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-600 text-white">
+                            <i className="bi bi-bookmark-fill"></i>
+                            <span className="text-[15px] ml-4 text-gray-200 font-bold">Çıxış</span>
+                        </button>
                         {/* <div className="my-4 bg-gray-600 h-[1px]"></div>
                     <div
                         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-600 text-white"

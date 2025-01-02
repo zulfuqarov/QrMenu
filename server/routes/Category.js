@@ -5,13 +5,20 @@ import cloudinary from "cloudinary";
 const router = express.Router();
 
 
-
+router.get("/GetCategory", async (req, res) => {
+    try {
+        const categories = await Category.find({}).sort({ createdAt: -1 }); 
+        res.status(200).json(categories);
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 router.use(CheckToken);
 
 router.post("/AddCategory", async (req, res) => {
     const { name } = req.body;
-    let imageCategory = req.file && req.file.imageCategory;
+    let imageCategory = req.files && req.files.imageCategory;
 
     if (!name) {
         return res.status(422).json({ error: "Zəhmət olmasa, bir ad daxil edin" });
@@ -48,7 +55,7 @@ router.post("/AddCategory", async (req, res) => {
 router.put("/UpdateCategory/:id", async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
-    let imageCategory = req.file && req.file.imageCategory;
+    let imageCategory = req.files && req.files.imageCategory;
 
     let updateCategory = {};
 
@@ -100,6 +107,21 @@ router.put("/UpdateCategory/:id", async (req, res) => {
 
 
 })
+
+router.delete("/DeleteCategory/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const category = await Category.findByIdAndDelete(id);
+        if (!category) {
+            return res.status(404).json({ message: "Kateqoriya tapılmadı" });
+        }
+        res.status(200).json({ message: "Kateqoriya silindi" });
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
 
 
 export default router;
