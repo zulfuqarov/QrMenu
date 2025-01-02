@@ -5,6 +5,8 @@ import { toast } from 'react-toastify'
 const AdminContext = ({ children }) => {
     const { apiClient } = useContext(ContextUser)
     // start Category
+    const [categoryLoading, setCategoryLoading] = useState(false)
+
     const [category, setcategory] = useState([])
     const getCategory = async () => {
         try {
@@ -17,6 +19,7 @@ const AdminContext = ({ children }) => {
 
     const [newCategory, setNewCategory] = useState()
     const newCategoryFunc = async (category) => {
+        setCategoryLoading(true)
         try {
             const data = new FormData()
             data.append('name', category.name)
@@ -25,9 +28,11 @@ const AdminContext = ({ children }) => {
             const response = await apiClient.post('/Category/AddCategory', data)
             setNewCategory(response.data)
             toast.success(response.data.message)
+            setCategoryLoading(false)
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.error)
+            setCategoryLoading(false)
         }
     }
 
@@ -38,6 +43,7 @@ const AdminContext = ({ children }) => {
 
     return (
         <ContextAdmin.Provider value={{
+            categoryLoading,
             category,
             newCategoryFunc
         }}>

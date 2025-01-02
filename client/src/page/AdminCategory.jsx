@@ -81,12 +81,13 @@ const AdminCategory = () => {
                         <i className="fa-solid fa-plus pl-[10px]"></i>
                     </button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 overflow-y-scroll h-full pb-[70px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 overflow-y-scroll  pb-[70px]">
                     {category.map((category, index) => (
                         <AdminCategoryList
                             handleModalToggle={handleModalToggle}
                             key={index}
                             category={category}
+                            setIsOpen={setIsOpen}
                         />
                     ))}
                 </div>
@@ -95,6 +96,7 @@ const AdminCategory = () => {
                 editCategory={editCategory}
                 handleModalToggle={handleModalToggle}
                 isOpen={isOpen}
+                setIsOpen={setIsOpen}
             />
         </div>
     )

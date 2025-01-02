@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { ContextAdmin } from '../../context/AdminContext';
 
-const CategoryModal = ({ isOpen, handleModalToggle, editCategory }) => {
-    const { newCategoryFunc } = useContext(ContextAdmin)
+const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) => {
+    const { newCategoryFunc, categoryLoading } = useContext(ContextAdmin)
     // change image catgeory 
     const [selectedImage, setSelectedImage] = useState({
         imageUrl: null,
@@ -116,16 +116,33 @@ const CategoryModal = ({ isOpen, handleModalToggle, editCategory }) => {
                             className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
                             Update
                         </button> : <button
-                            onClick={() => newCategoryFunc({
-                                name: categoryInput,
-                                imageFile: selectedImage.imageFile,
-                            })}
+                            onClick={async () => {
+                                await newCategoryFunc({
+                                    name: categoryInput,
+                                    imageFile: selectedImage.imageFile,
+                                })
+                                setIsOpen(false)
+                            }}
                             className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
                             Save
                         </button>
                     }
                 </div>
             </div>
+
+            {
+                categoryLoading &&
+
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="absolute inset-0 bg-opacity-60 backdrop-blur-sm"></div>
+                    <div className="relative flex justify-center items-center">
+                        <div className="w-16 h-16 border-4 border-t-4 border-orange-500 border-solid rounded-full animate-ping"></div>
+                    </div>
+                </div>
+            }
+
+
+
         </div>
     )
 }
