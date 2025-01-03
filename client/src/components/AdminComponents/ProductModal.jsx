@@ -40,7 +40,7 @@ const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => 
                 name: editProduct.name || "",
                 description: editProduct.description || "",
                 price: editProduct.price || "",
-                category_id: editProduct.category_id || "",
+                category_id: editProduct.category && editProduct.category._id || "",
             })
             setSelectedImage({
                 imageUrl: editProduct.image || null,
