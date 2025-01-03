@@ -69,18 +69,62 @@ const AdminContext = ({ children }) => {
         }
     }
 
+    // start Prodcut
+    const [productLoading, setProductLoading] = useState(false)
+
+    const [product, setProduct] = useState([])
+    const getProduct = async () => {
+        try {
+            const response = await apiClient.get('/Product/GetProduct')
+            setProduct(response.data)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const [newProduct, setNewProduct] = useState()
+    const newProductFunc = async (product) => {
+        setProductLoading(true)
+        try {
+            const data = new FormData()
+            data.append('name', product.name)
+            data.append('price', product.price)
+            data.append('category', product.category_id)
+            data.append('description', product.description)
+            data.append('imageProduct', product.imageFile)
+            const response = await apiClient.post('/Product/AddProduct', data)
+            setNewProduct(response.data)
+            toast.success(response.data.message)
+            setProductLoading(false)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.error)
+            setProductLoading(false)
+        }
+    }
+
+
     useEffect(() => {
         getCategory()
     }, [newCategory, deleteCategory, updateCategory])
 
+    useEffect(() => {
+        getProduct()
+    }, [newProduct])
 
     return (
         <ContextAdmin.Provider value={{
+            // category start
             categoryLoading,
             category,
             newCategoryFunc,
             deleteCategoryFunc,
-            updateCategoryFunc
+            updateCategoryFunc,
+            // product start
+            productLoading,
+            product,
+            newProductFunc
         }}>
             {
                 children
