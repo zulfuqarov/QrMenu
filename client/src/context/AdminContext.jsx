@@ -105,6 +105,8 @@ const AdminContext = ({ children }) => {
     }
 
 
+
+    
     useEffect(() => {
         getCategory()
     }, [newCategory, deleteCategory, updateCategory])
