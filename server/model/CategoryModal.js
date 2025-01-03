@@ -11,6 +11,10 @@ const categorySchema = mongoose.Schema({
         trim: true,
         default: 'https://www.iseu.bsu.by/en/wp-content/plugins/elementor/assets/images/placeholder.png'
     },
+    imageId: {
+        type: String,
+        trim: true,
+    },
     createdAt: { type: Date, default: Date.now },
 },
 )

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Loading from '../Loading'
+import { ContextAdmin } from '../../context/AdminContext'
 
 const AdminCategoryList = ({ category, handleModalToggle }) => {
+    const { deleteCategoryFunc, categoryLoading } = useContext(ContextAdmin)
     return (
         <div
-            key={category.id}
-            className="flex  items-center max-[768px]:flex-col bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
+            key={category._id}
+            className="flex h-[100px]  items-center max-[768px]:flex-col bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
         >
 
             <div className="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden border border-gray-300">
@@ -29,11 +32,18 @@ const AdminCategoryList = ({ category, handleModalToggle }) => {
                     Edit
                 </button>
                 <button
+                    onClick={() => deleteCategoryFunc(category._id)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                 >
                     Delete
                 </button>
             </div>
+
+            {
+                categoryLoading &&
+                <Loading />
+            }
+
         </div>
 
     )

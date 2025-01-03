@@ -36,16 +36,51 @@ const AdminContext = ({ children }) => {
         }
     }
 
+    const [updateCategory, setUpdateCategory] = useState()
+    const updateCategoryFunc = async (id, category) => {
+        setCategoryLoading(true)
+        try {
+            const data = new FormData()
+            data.append('name', category.name)
+            data.append('imageCategory', category.imageFile)
+            const response = await apiClient.put(`/Category/UpdateCategory/${id}`, data)
+            setUpdateCategory(response.data.category)
+            toast.success(response.data.message)
+            setCategoryLoading(false)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.error)
+            setCategoryLoading(false)
+        }
+    }
+
+    const [deleteCategory, setDeleteCategory] = useState()
+    const deleteCategoryFunc = async (id) => {
+        setCategoryLoading(true)
+        try {
+            const response = await apiClient.delete(`/Category/DeleteCategory/${id}`)
+            setDeleteCategory(response.data)
+            toast.success(response.data.message)
+            setCategoryLoading(false)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.error)
+            setCategoryLoading(false)
+        }
+    }
+
     useEffect(() => {
         getCategory()
-    }, [newCategory])
+    }, [newCategory, deleteCategory, updateCategory])
 
 
     return (
         <ContextAdmin.Provider value={{
             categoryLoading,
             category,
-            newCategoryFunc
+            newCategoryFunc,
+            deleteCategoryFunc,
+            updateCategoryFunc
         }}>
             {
                 children

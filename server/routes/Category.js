@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.get("/GetCategory", async (req, res) => {
     try {
-        const categories = await Category.find({}).sort({ createdAt: -1 }); 
+        const categories = await Category.find({})
+        // .sort({ createdAt: -1 });
         res.status(200).json(categories);
     } catch (error) {
         console.log(error)
@@ -19,7 +20,7 @@ router.use(CheckToken);
 router.post("/AddCategory", async (req, res) => {
     const { name } = req.body;
     let imageCategory = req.files && req.files.imageCategory;
-
+    let imageId = null;
     if (!name) {
         return res.status(422).json({ error: "Zəhmət olmasa, bir ad daxil edin" });
     }
@@ -34,6 +35,7 @@ router.post("/AddCategory", async (req, res) => {
                 }
             );
             imageCategory = uploadImg.url;
+            imageId = uploadImg.public_id;
         } catch (error) {
             console.log(error);
             return res.status(500).json({ error: "Şəkil yüklənərkən xəta baş verdi" });
@@ -43,7 +45,8 @@ router.post("/AddCategory", async (req, res) => {
     try {
         const newCategory = new Category({
             name,
-            image: imageCategory,
+            image: imageCategory ? imageCategory : undefined,
+            imageId
         });
         await newCategory.save();
         res.status(201).json({ message: "Kateqoriya əlavə edildi", newCategory });
@@ -65,7 +68,15 @@ router.put("/UpdateCategory/:id", async (req, res) => {
         return res.status(422).json({ error: "Zəhmət olmasa, bir ad daxil edin" });
     }
     if (imageCategory) {
+
+        const categoryImage = await Category.findById(id);
+
         try {
+
+            if (categoryImage.imageId) {
+                await cloudinary.uploader.destroy(categoryImage.imageId);
+            }
+
             const uploadImg = await cloudinary.uploader.upload(
                 imageCategory.tempFilePath,
                 {
@@ -73,8 +84,10 @@ router.put("/UpdateCategory/:id", async (req, res) => {
                     folder: "Home",
                 }
             );
+
             imageCategory = uploadImg.url;
             updateCategory.image = imageCategory;
+            updateCategory.imageId = uploadImg.public_id;
         } catch (error) {
             console.log(error);
             return res.status(500).json({ error: "Şəkil yüklənərkən xəta baş verdi" });
@@ -98,7 +111,7 @@ router.put("/UpdateCategory/:id", async (req, res) => {
             return res.status(404).json({ message: "Kateqoriya tapılmadı" });
         }
 
-        res.status(200).json(category);
+        res.status(200).json({ message: " Kateqoriya yeniləndi", category });
 
     } catch (error) {
         console.log(error)
@@ -111,6 +124,16 @@ router.put("/UpdateCategory/:id", async (req, res) => {
 router.delete("/DeleteCategory/:id", async (req, res) => {
     try {
         const { id } = req.params;
+        const categoryImage = await Category.findById(id);
+
+        if (!categoryImage) {
+            return res.status(404).json({ message: "Kateqoriya tapılmadı" });
+        }
+
+        if (categoryImage.imageId) {
+            await cloudinary.uploader.destroy(categoryImage.imageId);
+        }
+
         const category = await Category.findByIdAndDelete(id);
         if (!category) {
             return res.status(404).json({ message: "Kateqoriya tapılmadı" });

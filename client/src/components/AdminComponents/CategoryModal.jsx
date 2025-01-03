@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { ContextAdmin } from '../../context/AdminContext';
+import Loading from '../Loading';
 
 const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) => {
-    const { newCategoryFunc, categoryLoading } = useContext(ContextAdmin)
+    const { newCategoryFunc, categoryLoading, updateCategoryFunc } = useContext(ContextAdmin)
     // change image catgeory 
     const [selectedImage, setSelectedImage] = useState({
         imageUrl: null,
@@ -112,7 +113,18 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
                     </button>
                     {
                         editCategory ? <button
-
+                            onClick={async () => {
+                                await updateCategoryFunc(editCategory._id, {
+                                    name: categoryInput,
+                                    imageFile: selectedImage.imageFile,
+                                })
+                                setSelectedImage({
+                                    imageUrl: editCategory.image,
+                                    imageFile: null,
+                                })
+                                setCategoryInput(editCategory.name)
+                                setIsOpen(false)
+                            }}
                             className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
                             Update
                         </button> : <button
@@ -121,6 +133,11 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
                                     name: categoryInput,
                                     imageFile: selectedImage.imageFile,
                                 })
+                                setSelectedImage({
+                                    imageUrl: null,
+                                    imageFile: null,
+                                })
+                                setCategoryInput('')
                                 setIsOpen(false)
                             }}
                             className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
@@ -133,12 +150,7 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
             {
                 categoryLoading &&
 
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="absolute inset-0 bg-opacity-60 backdrop-blur-sm"></div>
-                    <div className="relative flex justify-center items-center">
-                        <div className="w-16 h-16 border-4 border-t-4 border-orange-500 border-solid rounded-full animate-ping"></div>
-                    </div>
-                </div>
+                <Loading />
             }
 
 

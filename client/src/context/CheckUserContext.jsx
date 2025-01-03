@@ -21,7 +21,6 @@ const CheckUserContext = ({ children }) => {
             if (error.response?.status === 403) {
                 navigate("/");
                 sethasJwtToken(false)
-                toast.error(error.response.data.error);
             }
             return Promise.reject(error);
         }
