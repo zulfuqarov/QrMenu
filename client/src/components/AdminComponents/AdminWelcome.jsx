@@ -9,7 +9,7 @@ const AdminWelcome = () => {
     }, [])
 
     return (
-        <div className="flex items-center justify-center  w-full">
+        <div className="flex items-center justify-center h-[100vh]  w-full">
             <motion.div
                 className="text-4xl font-bold text-gray-800 text-center "
                 initial={{ opacity: 0 }}

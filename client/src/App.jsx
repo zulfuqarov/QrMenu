@@ -41,7 +41,7 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Details" element={<Detail />} />
+            <Route path="/Details/:name" element={<Detail />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/WorkTime" element={<WorkTime />} />
             <Route path="/Language" element={<Language />} />

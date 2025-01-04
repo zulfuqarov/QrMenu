@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ContextAdmin } from '../../context/AdminContext'
+import Loading from '../Loading'
 
 const AdminProductList = ({ product, handleModalToggle }) => {
+    const { deleteProductFunc, productLoading } = useContext(ContextAdmin)
     return (
         <div
             key={product.id}
@@ -11,7 +14,7 @@ const AdminProductList = ({ product, handleModalToggle }) => {
                 <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                 />
             </div>
             {/* İçerik */}
@@ -33,11 +36,16 @@ const AdminProductList = ({ product, handleModalToggle }) => {
                     Edit
                 </button>
                 <button
+                    onClick={() => deleteProductFunc(product._id)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                 >
                     Delete
                 </button>
             </div>
+            {
+                productLoading &&
+                <Loading />
+            }
         </div>
     )
 }

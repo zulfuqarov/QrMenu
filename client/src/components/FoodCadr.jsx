@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const FoodCadr = ({ item }) => {
 
     return (
-        <Link to="/Details" className={`h-[200px] w-full relative bg-no-repeat bg-cover bg-center rounded`}
+        <Link to={`/Details/${item.name}`} className={`h-[200px] w-full relative bg-no-repeat bg-cover bg-center rounded`}
             style={{ backgroundImage: `url(${item.image})` }}
         >
             <div className="absolute inset-0 bg-black bg-opacity-20 rounded"></div>

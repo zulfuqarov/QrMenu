@@ -4,7 +4,7 @@ import { ContextAdmin } from "../../context/AdminContext";
 import Loading from "../Loading";
 
 const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => {
-    const { category, newProductFunc, productLoading } = useContext(ContextAdmin)
+    const { category, newProductFunc, productLoading, updateProductFunc } = useContext(ContextAdmin)
     const [selectedImage, setSelectedImage] = useState({
         imageUrl: null,
         imageFile: null,
@@ -174,9 +174,31 @@ const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => 
                         Cancel
                     </button>
                     {
-                        editProduct ? <button className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
-                            Edit
-                        </button> :
+                        editProduct ?
+                            <button
+                                onClick={async () => {
+                                    await updateProductFunc(editProduct._id, {
+                                        name: productInput.name,
+                                        description: productInput.description,
+                                        price: productInput.price,
+                                        category_id: productInput.category_id,
+                                        imageFile: selectedImage.imageFile
+                                    })
+                                    setProductInput({
+                                        name: editProduct.name || "",
+                                        description: editProduct.description || "",
+                                        price: editProduct.price || "",
+                                        category_id: editProduct.category && editProduct.category._id || "",
+                                    })
+                                    setSelectedImage({
+                                        imageUrl: editProduct.image || null,
+                                        imageFile: null,
+                                    })
+                                    setIsOpen(false)
+                                }}
+                                className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
+                                Edit
+                            </button> :
                             <button
                                 onClick={async () => {
                                     await newProductFunc({

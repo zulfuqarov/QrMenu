@@ -77,7 +77,6 @@ const AdminContext = ({ children }) => {
         try {
             const response = await apiClient.get('/Product/GetProduct')
             setProduct(response.data)
-            console.log(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -104,16 +103,65 @@ const AdminContext = ({ children }) => {
         }
     }
 
+    const [updateProduct, setUpdateProduct] = useState()
+    const updateProductFunc = async (id, product) => {
+        setProductLoading(true)
+        try {
+            const data = new FormData()
+            data.append('name', product.name)
+            data.append('price', product.price)
+            data.append('category', product.category_id)
+            data.append('description', product.description)
+            data.append('imageProduct', product.imageFile)
+            const response = await apiClient.put(`/Product/UpdateProduct/${id}`, data)
+            setUpdateProduct(response.data.product)
+            toast.success(response.data.message)
+            setProductLoading(false)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.error)
+            setProductLoading(false)
+        }
+    }
+
+    const [deleteProduct, setDeleteProduct] = useState()
+    const deleteProductFunc = async (id) => {
+        setProductLoading(true)
+        try {
+            const response = await apiClient.delete(`/Product/DeleteProduct/${id}`)
+            setDeleteProduct(response.data)
+            toast.success(response.data.message)
+            setProductLoading(false)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.error)
+            setProductLoading(false)
+        }
+    }
+
+    const [getProductByCategoryLoading, setGetProductByCategoryLoading] = useState(true)
+    const [getProductByCategory, setGetProductByCategory] = useState([])
+    const getProductByCategoryFunc = async (name) => {
+        try {
+            const response = await apiClient.get(`/Product/GetProduct/${name}`)
+            setGetProductByCategory(response.data)
+            setGetProductByCategoryLoading(false)
+        } catch (error) {
+            console.log(error)
+            setGetProductByCategory([])
+            setGetProductByCategoryLoading(false)
+        }
+    }
 
 
-    
+
     useEffect(() => {
         getCategory()
     }, [newCategory, deleteCategory, updateCategory])
 
     useEffect(() => {
         getProduct()
-    }, [newProduct])
+    }, [newProduct, deleteProduct, updateProduct])
 
     return (
         <ContextAdmin.Provider value={{
@@ -126,7 +174,13 @@ const AdminContext = ({ children }) => {
             // product start
             productLoading,
             product,
-            newProductFunc
+            newProductFunc,
+            updateProductFunc,
+            deleteProductFunc,
+            getProductByCategoryFunc,
+            getProductByCategory,
+            getProductByCategoryLoading,
+            setGetProductByCategoryLoading
         }}>
             {
                 children
