@@ -55,7 +55,8 @@ const Home = () => {
                 <div className='grid grid-cols-3 gap-4 max-[991px]:grid-cols-2 max-[768px]:grid-cols-1 pt-[30px] max-[768px]:px-[15px]'>
                     {
                         category && category.map((item, index) => (
-                            <FoodCadr key={index} item={item} />
+                            <Food
+                            Cadr key={index} item={item} />
                         ))
                     }
                 </div>

@@ -23,7 +23,7 @@ const Detail = () => {
             <div className='pb-[100px]'>
                 <div className='px-[20px]'>
                     <p className='pt-[30px]  text-[28px] text-black font-medium'>
-                        Category Name
+                        {name}
                     </p>
                     <div className="max-w-md mx-auto pt-[10px]">
                         <label
