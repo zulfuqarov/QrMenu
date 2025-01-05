@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import FoodDetail from '../components/FoodDetail'
 import { useParams } from 'react-router-dom';
 import { ContextAdmin } from '../context/AdminContext';
@@ -15,6 +15,31 @@ const Detail = () => {
         }
 
     }, [name])
+
+    const [filterProduct, setfilterProduct] = useState([])
+    const [filterInput, setfilterInput] = useState('')
+    const handleChangeFilterInput = (e) => {
+        setfilterInput(e.target.value)
+    }
+    function normalizeString(str) {
+        return str
+            .replace(/ə/g, 'e')
+            .replace(/ı/g, 'i')
+            .replace(/ö/g, 'o')
+            .replace(/ü/g, 'u')
+            .replace(/ğ/g, 'g')
+            .replace(/ç/g, 'c')
+            .replace(/ş/g, 's');
+    }
+
+    const FilterFunc = () => {
+        const filterResponse = getProductByCategory.filter((pro) =>
+            normalizeString(pro.name.toLowerCase()).includes(normalizeString(filterInput.toLowerCase()))
+        )
+        setfilterProduct(filterResponse)
+        console.log(filterResponse)
+    }
+
 
     if (getProductByCategoryLoading) {
         return <Loading />
@@ -51,14 +76,16 @@ const Detail = () => {
                                 </svg>
                             </div>
                             <input
+                                value={filterInput}
+                                onChange={handleChangeFilterInput}
                                 type="search"
                                 id="default-search"
-                                className="block w-full p-4 ps-10 text-sm text-white border border-none rounded-lg bg-gray-200 placeholder-gray-500 focus:ring-gray-500 focus:border-gray-500"
+                                className="block w-full p-4 ps-10 text-sm text-black border border-none rounded-lg bg-gray-200 placeholder-gray-500 focus:ring-gray-500 focus:border-gray-500"
                                 placeholder="Search Mockups, Logos..."
                                 required=""
                             />
                             <button
-                                type="submit"
+                                onClick={FilterFunc}
                                 className="text-white absolute end-2.5 bottom-2 bg-gray-800 hover:bg-gray-700   font-medium rounded-lg text-sm px-4 py-2"
                             >
                                 Search
@@ -72,9 +99,13 @@ const Detail = () => {
                     getProductByCategory.length > 0 ? <div className='container mx-auto'>
                         <div className='grid grid-cols-3 gap-4 max-[991px]:grid-cols-2 max-[768px]:grid-cols-1 pt-[30px] '>
                             {
-                                getProductByCategory.map((item, index) => (
+
+                                filterProduct.length > 0 ? filterProduct.map((item, index) => (
                                     <FoodDetail key={index} item={item} />
-                                ))
+                                )) :
+                                    getProductByCategory.map((item, index) => (
+                                        <FoodDetail key={index} item={item} />
+                                    ))
                             }
                         </div>
                     </div> : <div className='flex justify-center items-center h-[30vh]'>
