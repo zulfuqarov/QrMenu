@@ -81,14 +81,13 @@ const Detail = () => {
                                 type="search"
                                 id="default-search"
                                 className="block w-full p-4 ps-10 text-sm text-black border border-none rounded-lg bg-gray-200 placeholder-gray-500 focus:ring-gray-500 focus:border-gray-500"
-                                placeholder="Search Mockups, Logos..."
-                                required=""
+                                placeholder="Bu kateqoriyadakı məhsulları axtarın..."
                             />
                             <button
                                 onClick={FilterFunc}
                                 className="text-white absolute end-2.5 bottom-2 bg-gray-800 hover:bg-gray-700   font-medium rounded-lg text-sm px-4 py-2"
                             >
-                                Search
+                                Axtar
                             </button>
                         </div>
                     </div>
