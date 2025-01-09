@@ -156,8 +156,10 @@ const AdminContext = ({ children }) => {
 
     // header Img change Start
     const [headerImg, setheaderImg] = useState('')
-    const changeHeaderImgFunc = (imgUrl) => {
+    const [headerName, setheaderName] = useState('')
+    const changeHeaderImgFunc = (imgUrl, name) => {
         setheaderImg(imgUrl)
+        setheaderName(name)
     }
 
 
@@ -191,8 +193,8 @@ const AdminContext = ({ children }) => {
             setGetProductByCategoryLoading,
             // header img change
             changeHeaderImgFunc,
-            headerImg
-
+            headerImg,
+            headerName
         }}>
             {
                 children

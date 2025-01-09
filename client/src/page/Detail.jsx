@@ -1,23 +1,35 @@
 import React, { useContext, useEffect, useState } from 'react'
 import FoodDetail from '../components/FoodDetail'
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ContextAdmin } from '../context/AdminContext';
 import Loading from '../components/Loading';
 const Detail = () => {
-    const location = useLocation();
 
-    const { getProductByCategoryFunc, getProductByCategory, getProductByCategoryLoading, setGetProductByCategoryLoading, changeHeaderImgFunc } = useContext(ContextAdmin)
+    const { getProductByCategoryFunc, getProductByCategory, getProductByCategoryLoading, setGetProductByCategoryLoading, changeHeaderImgFunc, category } = useContext(ContextAdmin)
     const { name } = useParams()
 
     useEffect(() => {
         getProductByCategoryFunc(name)
-        changeHeaderImgFunc(location.state.image)
+        
         return () => {
             setGetProductByCategoryLoading(true)
-            changeHeaderImgFunc('')
+            changeHeaderImgFunc('', '')
         }
 
     }, [name])
+
+    useEffect(() => {
+        const headerData = category.find((cat) => cat.name === name);
+        if (headerData) {
+            changeHeaderImgFunc(headerData.image, headerData.name);
+        } else {
+            changeHeaderImgFunc('', '');
+        }
+        return () => {
+            changeHeaderImgFunc('', '');
+        };
+    }, [category, name]);
+
 
     const [filterProduct, setfilterProduct] = useState([])
     const [filterInput, setfilterInput] = useState('')

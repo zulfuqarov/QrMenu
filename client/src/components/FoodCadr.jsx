@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 const FoodCadr = ({ item }) => {
 
     return (
         <Link to={`/Details/${item.name}`}
-            state={item}
             className={`h-[200px] w-full relative bg-no-repeat bg-cover bg-center rounded`}
             style={{ backgroundImage: `url(${item.image})` }}
         >

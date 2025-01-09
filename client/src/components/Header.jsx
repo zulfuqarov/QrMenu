@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { ContextAdmin } from '../context/AdminContext'
 
 const Header = () => {
-    const { headerImg } = useContext(ContextAdmin)
+    const { headerImg, headerName } = useContext(ContextAdmin)
     return (
         <div className="relative w-full h-64 bg-gray-300">
             <img
@@ -15,7 +15,7 @@ const Header = () => {
 
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white z-10">
                 <h1 className="text-4xl font-bold">Menu Qr Code</h1>
-                <p className="mt-2 text-lg">Menu ilə tanış ol</p>
+                <p className="mt-2 text-lg">{headerName ? headerName : 'Menu ilə tanış ol'}</p>
             </div>
         </div>
 
