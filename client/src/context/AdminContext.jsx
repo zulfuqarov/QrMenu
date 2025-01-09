@@ -154,6 +154,14 @@ const AdminContext = ({ children }) => {
     }
 
 
+    // header Img change Start
+    const [headerImg, setheaderImg] = useState('')
+    const changeHeaderImgFunc = (imgUrl) => {
+        setheaderImg(imgUrl)
+    }
+
+
+
 
     useEffect(() => {
         getCategory()
@@ -180,7 +188,11 @@ const AdminContext = ({ children }) => {
             getProductByCategoryFunc,
             getProductByCategory,
             getProductByCategoryLoading,
-            setGetProductByCategoryLoading
+            setGetProductByCategoryLoading,
+            // header img change
+            changeHeaderImgFunc,
+            headerImg
+
         }}>
             {
                 children

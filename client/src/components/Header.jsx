@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ContextAdmin } from '../context/AdminContext'
 
 const Header = () => {
+    const { headerImg } = useContext(ContextAdmin)
     return (
         <div className="relative w-full h-64 bg-gray-300">
             <img
-                src="https://api.hel.fi/linkedevents/media/images/35227983_451457415298989_3511539843593142272_o.jpg" 
+                src={`${headerImg ? headerImg : "https://api.hel.fi/linkedevents/media/images/35227983_451457415298989_3511539843593142272_o.jpg"}`}
                 alt="Banner"
                 className="w-full h-full object-cover"
             />

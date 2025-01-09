@@ -32,11 +32,12 @@ const App = () => {
 
   return (
     <>
-      {
-        hideHeader ? null : <Header />
-      }
+
       <CheckUserContext>
         <AdminContext>
+          {
+            hideHeader ? null : <Header />
+          }
           <ToastContainer />
           <Navbar />
           <Routes>

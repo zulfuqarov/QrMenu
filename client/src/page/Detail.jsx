@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 import FoodDetail from '../components/FoodDetail'
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { ContextAdmin } from '../context/AdminContext';
 import Loading from '../components/Loading';
 const Detail = () => {
-    const { getProductByCategoryFunc, getProductByCategory, getProductByCategoryLoading, setGetProductByCategoryLoading } = useContext(ContextAdmin)
+    const location = useLocation();
+
+    const { getProductByCategoryFunc, getProductByCategory, getProductByCategoryLoading, setGetProductByCategoryLoading, changeHeaderImgFunc } = useContext(ContextAdmin)
     const { name } = useParams()
 
     useEffect(() => {
         getProductByCategoryFunc(name)
-
+        changeHeaderImgFunc(location.state.image)
         return () => {
             setGetProductByCategoryLoading(true)
+            changeHeaderImgFunc('')
         }
 
     }, [name])
