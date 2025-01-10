@@ -16,7 +16,7 @@ const AdminWelcome = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 2 }}
             >
-                Welcome to Admin Panel <br /> <span className="text-orange-500">{adminName}</span>
+                Admin Panelinə Xoş Gəlmisiniz <br /> <span className="text-orange-500">{adminName}</span>
             </motion.div>
         </div>
     )

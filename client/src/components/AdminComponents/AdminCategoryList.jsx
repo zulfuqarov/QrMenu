@@ -29,13 +29,13 @@ const AdminCategoryList = ({ category, handleModalToggle }) => {
                     onClick={() => handleModalToggle(category)}
                     className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
                 >
-                    Edit
+                    Düzəliş et
                 </button>
                 <button
                     onClick={() => deleteCategoryFunc(category._id)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                 >
-                    Delete
+                    Sil
                 </button>
             </div>
 

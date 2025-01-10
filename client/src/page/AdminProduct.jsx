@@ -35,7 +35,7 @@ const AdminProduct = () => {
         <div className='w-full h-[100vh] flex justify-center pb-[100px] pt-[50px]'>
             <div className="p-4 bg-gray-100 w-full ">
                 <div className='flex justify-between items-center max-[768px]:flex-col max-[768px]:items-start'>
-                    <p className="text-2xl font-bold text-gray-800 mb-6">Product List</p>
+                    <p className="text-2xl font-bold text-gray-800 mb-6">Məhsul Siyahısı</p>
                     <div className="mb-6">
                         <select
                             value={sectionInput}
@@ -43,7 +43,7 @@ const AdminProduct = () => {
                             id="filter"
                             className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                         >
-                            <option value="" >Hamisi</option>
+                            <option value="" >Hamısı</option>
                             {
                                 category &&
                                 category.map((item, index) => (
@@ -55,7 +55,7 @@ const AdminProduct = () => {
                     <button
                         onClick={() => handleModalToggle(null)}
                         className="mb-6 px-6 py-3 text-[14px] bg-orange-500 text-white font-semibold rounded-lg shadow-md hover:bg-orange-600 transition duration-300">
-                        Add Product
+                        Məhsul Əlavə Et
                         <i className="fa-solid fa-plus pl-[10px]"></i>
                     </button>
                 </div>

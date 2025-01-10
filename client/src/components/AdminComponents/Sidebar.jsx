@@ -54,7 +54,7 @@ const Sidebar = () => {
                             <i className="bi bi-search text-sm"></i>
                             <input
                                 type="text"
-                                placeholder="Search"
+                                placeholder="Axtar"
                                 className="text-[15px] ml-4 w-full bg-transparent focus:outline-none"
                             />
                         </div>
@@ -64,11 +64,11 @@ const Sidebar = () => {
                         </Link>
                         <Link to="/Admin/Category" className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-600 text-white">
                             <i className="bi bi-house-door-fill"></i>
-                            <span className="text-[15px] ml-4 text-gray-200 font-bold">Category</span>
+                            <span className="text-[15px] ml-4 text-gray-200 font-bold">Kateqoriya</span>
                         </Link>
                         <Link to="/Admin/Product" className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-600 text-white">
                             <i className="bi bi-bookmark-fill"></i>
-                            <span className="text-[15px] ml-4 text-gray-200 font-bold">Product</span>
+                            <span className="text-[15px] ml-4 text-gray-200 font-bold">Məhsul</span>
                         </Link>
                         <button
                             onClick={logout}

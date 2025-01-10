@@ -64,50 +64,50 @@ const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => 
         isOpen &&
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm">
             <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg">
-                <h2 className="text-lg font-bold mb-4">{editProduct ? 'Update Product' : 'Add New Product'} </h2>
+                <h2 className="text-lg font-bold mb-4">{editProduct ? 'Məhsulu Yenilə' : 'Yeni Məhsul Əlavə Et'} </h2>
 
                 {/* Product Name Input */}
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Product Name
+                    Məhsul Adı
                 </label>
                 <input
                     name="name"
                     value={productInput.name}
                     onChange={handleProductInput}
                     type="text"
-                    placeholder="Enter product name"
+                    placeholder="Məhsul adını daxil edin"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
 
                 {/* Product Description */}
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description
+                    təsvir
                 </label>
                 <textarea
                     name="description"
                     value={productInput.description}
                     onChange={handleProductInput}
-                    placeholder="Enter product description"
+                    placeholder="Məhsul təsvirini daxil edin"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-orange-500 focus:outline-none resize-none"
                     rows="4"
                 ></textarea>
 
                 {/* Product Price */}
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Price
+                    Qiymət
                 </label>
                 <input
                     name="price"
                     value={productInput.price}
                     onChange={handleProductInput}
                     type="number"
-                    placeholder="Enter product price"
+                    placeholder="Məhsulun qiymətini daxil edin"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
 
                 {/* Category Dropdown */}
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Select Category
+                    Kateqoriya Seçin
                 </label>
                 <select
                     value={productInput.category_id}
@@ -153,7 +153,7 @@ const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => 
                                     d="M12 4v16m8-8H4"
                                 ></path>
                             </svg>
-                            <span>Click to upload an image</span>
+                            <span>Şəkil yükləmək üçün klikləyin</span>
                         </div>
                     )}
                     <input
@@ -171,7 +171,7 @@ const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => 
                         className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition duration-300"
                         onClick={handleModalToggle}
                     >
-                        Cancel
+                        Ləğv et
                     </button>
                     {
                         editProduct ?
@@ -197,7 +197,7 @@ const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => 
                                     setIsOpen(false)
                                 }}
                                 className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
-                                Edit
+                                Düzəliş et
                             </button> :
                             <button
                                 onClick={async () => {
@@ -221,7 +221,7 @@ const ProductModal = ({ isOpen, handleModalToggle, editProduct, setIsOpen }) => 
                                     setIsOpen(false)
                                 }}
                                 className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
-                                Save
+                                Yadda saxla
                             </button>
                     }
 

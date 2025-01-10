@@ -50,17 +50,17 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
         isOpen &&
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm">
             <div className="bg-white w-96 p-6 rounded-lg shadow-lg">
-                <h2 className="text-lg font-bold mb-4">{editCategory ? 'Update Category' : 'Add New Category'} </h2>
+                <h2 className="text-lg font-bold mb-4">{editCategory ? 'Kateqoriyanı Yenilə' : 'Yeni Kateqoriya Əlavə Et'} </h2>
 
                 {/* Category Name Input */}
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Category Name
+                    Kateqoriya Adı
                 </label>
                 <input
                     onChange={handeleChangeInput}
                     value={categoryInput}
                     type="text"
-                    placeholder="Enter category name"
+                    placeholder="Kateqoriya adını daxil edin"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
 
@@ -91,7 +91,7 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
                                     d="M12 4v16m8-8H4"
                                 ></path>
                             </svg>
-                            <span>Click to upload an image</span>
+                            <span>Şəkil yükləmək üçün klikləyin</span>
                         </div>
                     )}
                     <input
@@ -109,7 +109,7 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
                         className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition duration-300"
                         onClick={handleModalToggle}
                     >
-                        Cancel
+                        Ləğv et
                     </button>
                     {
                         editCategory ? <button
@@ -126,7 +126,7 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
                                 setIsOpen(false)
                             }}
                             className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
-                            Update
+                            Yenilə
                         </button> : <button
                             onClick={async () => {
                                 await newCategoryFunc({
@@ -141,7 +141,7 @@ const CategoryModal = ({ isOpen, setIsOpen, handleModalToggle, editCategory }) =
                                 setIsOpen(false)
                             }}
                             className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300">
-                            Save
+                            Yadda saxla
                         </button>
                     }
                 </div>

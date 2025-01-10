@@ -29,7 +29,7 @@ const AdminCategory = () => {
         <div className='w-full h-[100vh] flex justify-center pb-[100px] pt-[50px]'>
             <div className="p-4 bg-gray-100 w-full ">
                 <div className='flex justify-between items-center max-[768px]:flex-col max-[768px]:items-start'>
-                    <p className="text-2xl font-bold text-gray-800 mb-6">Category List</p>
+                    <p className="text-2xl font-bold text-gray-800 mb-6">Kateqoriya Siyahısı</p>
                     <div className="mb-6">
                         <select
                             value={sectionInput}
@@ -48,7 +48,7 @@ const AdminCategory = () => {
                     <button
                         onClick={() => handleModalToggle(null)}
                         className="mb-6 px-6 py-3 text-[14px] bg-orange-500 text-white font-semibold rounded-lg shadow-md hover:bg-orange-600 transition duration-300">
-                        Add Category
+                        Kateqoriya Əlavə Et
                         <i className="fa-solid fa-plus pl-[10px]"></i>
                     </button>
                 </div>
