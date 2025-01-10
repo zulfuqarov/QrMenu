@@ -23,6 +23,11 @@ const Sidebar = () => {
         }
     }
 
+
+    // toogle start 
+    const [showSubLinks, setshowSubLinks] = useState(false)
+
+
     return (
         <div className='h-[100vh] pt-[10px] relative max-[991px]:fixed max-[991px]:z-50'>
             <span
@@ -58,6 +63,32 @@ const Sidebar = () => {
                                 className="text-[15px] ml-4 w-full bg-transparent focus:outline-none"
                             />
                         </div>
+                        <button
+                            onClick={() => setshowSubLinks(!showSubLinks)}
+                            className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-600 text-white w-full">
+                            <i className="bi bi-bookmark-fill"></i>
+                            <span className="text-[15px] ml-4 text-gray-200 font-bold">Restorant Haqqında</span>
+                        </button>
+                        {
+                            showSubLinks &&
+                            <div className="mt-2 pl-6 border-l-4 border-orange-600">
+                                <Link
+                                    to="/Admin/Contact"
+                                    className="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-500 text-gray-100 "
+                                >
+                                    <i className="bi bi-info-circle"></i>
+                                    <span className="text-[14px] ml-4 font-semibold">Əlaqə Məlumatı</span>
+                                </Link>
+                                {/* <Link
+                                    to="/Admin/Map"
+                                    className="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-500 text-gray-100 "
+                                >
+                                    <i className="bi bi-geo-alt"></i>
+                                    <span className="text-[14px] ml-4 font-semibold">Ünvan Xəritə</span>
+                                </Link> */}
+                            </div>
+                        }
+
                         <Link to="/Admin/Menu" className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-orange-600 text-white">
                             <i className="bi bi-bookmark-fill"></i>
                             <span className="text-[15px] ml-4 text-gray-200 font-bold">Menu</span>
