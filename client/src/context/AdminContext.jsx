@@ -162,17 +162,57 @@ const AdminContext = ({ children }) => {
         setheaderName(name)
     }
 
+    // contact start
+    const [contactLoading, setcontactLoading] = useState(false)
+    const [contactData, setcontactData] = useState()
+    const getContactData = async () => {
+        try {
+            const response = await apiClient.get('/Contact')
+            setcontactData(response.data[0])
+        } catch (error) {
+            console.log(error)
+            setcontactData(null)
+        }
+    }
 
+    const [updateContact, setupdateContact] = useState()
+    const updateContactFunc = async (contact, id) => {
 
+        setcontactLoading(true)
+        try {
+            const response = await apiClient.put(`/Contact/update/${id}`, contact)
+            setupdateContact(response.data.webAbout)
+            toast.success(response.data.message)
+            setcontactLoading(false)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.error)
+            setcontactLoading(false)
+        }
+    }
 
+    // ---------------------------------------
+
+    // category
     useEffect(() => {
         getCategory()
     }, [newCategory, deleteCategory, updateCategory])
 
+    // product
     useEffect(() => {
         getProduct()
     }, [newProduct, deleteProduct, updateProduct])
 
+    // contact
+    useEffect(() => {
+        getContactData()
+    }, [updateContact])
+
+    // show contact or work time
+    const [showContactOrWork, setshowContactOrWork] = useState(false)
+    const showContactOrWorkFunc = () => {
+        setshowContactOrWork(!showContactOrWork)
+    }
     return (
         <ContextAdmin.Provider value={{
             // category start
@@ -194,7 +234,14 @@ const AdminContext = ({ children }) => {
             // header img change
             changeHeaderImgFunc,
             headerImg,
-            headerName
+            headerName,
+            // contact start
+            contactData,
+            updateContactFunc,
+            contactLoading,
+            showContactOrWorkFunc,
+            showContactOrWork
+
         }}>
             {
                 children

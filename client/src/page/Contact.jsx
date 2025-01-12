@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ContextAdmin } from '../context/AdminContext'
 
 const Contact = () => {
+    const { contactData } = useContext(ContextAdmin)
     return (
         <div className='mx-auto container pb-[100px]'>
             <div className='pt-[30px] px-[10px]'>
@@ -53,7 +55,7 @@ C436.548,245.256,433.468,237.844,427.876,232.256z"
                             </div>
                             <div>
                                 <p className='text-black font-medium'>Wifi Adı</p>
-                                <p className='text-slate-600 text-[15px]'>Adı</p>
+                                <p className='text-slate-600 text-[15px]'>{contactData ? contactData.wifiName : 'Wifi Adı'}</p>
                             </div>
                         </div>
                         <div className='p-[13px] border border-[#cfcfcf] rounded mt-[10px] flex items-center'>
@@ -123,7 +125,7 @@ C436.548,245.256,433.468,237.844,427.876,232.256z"
                             </div>
                             <div>
                                 <p className='text-black font-medium'>Wifi Şifrə</p>
-                                <p className='text-slate-600 text-[15px]'>Şifrə</p>
+                                <p className='text-slate-600 text-[15px]'>{contactData ? contactData.wifiPassword : 'Wifi Şifrə'}</p>
                             </div>
                         </div>
                     </div>
@@ -145,7 +147,7 @@ C436.548,245.256,433.468,237.844,427.876,232.256z"
                             </div>
                             <div>
                                 <p className='text-black font-medium'>Ünvan</p>
-                                <p className='text-slate-600 text-[15px]'>30 Gəncə prospekti, Bakı</p>
+                                <p className='text-slate-600 text-[15px]'>{contactData ? contactData.location : 'Ünvan'}</p>
                             </div>
                         </div>
                         <div className='p-[13px] border border-[#cfcfcf] rounded mt-[10px] flex items-center'>
@@ -197,7 +199,7 @@ C436.548,245.256,433.468,237.844,427.876,232.256z"
                             </div>
                             <div>
                                 <p className='text-black font-medium'>Telefon</p>
-                                <p className='text-slate-600 text-[15px]'>+994 70 720 77 07</p>
+                                <p className='text-slate-600 text-[15px]'>{contactData ? contactData.phone : 'Telefon'}</p>
                             </div>
                         </div>
                     </div>

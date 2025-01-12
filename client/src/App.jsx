@@ -23,7 +23,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminContext from './context/AdminContext'
 import AdminContact from './page/AdminContact'
-import AdminMap from './page/AdminMap'
 
 axios.defaults.withCredentials = true;
 
@@ -53,7 +52,6 @@ const App = () => {
             <Route path="/Admin" element={<Admin />} >
               <Route index element={<AdminWelcome />} />
               <Route path='Contact' element={<AdminContact />} />
-              {/* <Route path='Map' element={<AdminMap />} /> */}
               <Route path='Menu' element={<AdminMenu />} />
               <Route path="Category" element={<AdminCategory />} />
               <Route path="Product" element={<AdminProduct />} />
